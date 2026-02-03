@@ -8,7 +8,7 @@ test("parses return expression list", () => {
     "return(1, \"x\", null);",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

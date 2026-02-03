@@ -8,7 +8,7 @@ test("parses multi-assign list", () => {
     "$a, %b = 1, 2;",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

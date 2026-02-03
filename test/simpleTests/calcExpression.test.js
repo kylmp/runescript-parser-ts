@@ -8,7 +8,7 @@ test("parses calc expression", () => {
     "calc(1 + 2 * 3);",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

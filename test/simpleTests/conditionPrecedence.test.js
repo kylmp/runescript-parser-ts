@@ -8,7 +8,7 @@ test("parses condition precedence", () => {
     "if (1 = 2 | 3 = 4 & 5 = 6) ;",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

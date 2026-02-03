@@ -52,7 +52,7 @@ export class ScriptParser {
     return this.parseFileTextString(lines.join("\n"), errorListener);
   }
 
-  public static parseSciptText(
+  public static parseScriptText(
     script: string,
     errorListener?: ANTLRErrorListener<unknown>
   ): Script | null {

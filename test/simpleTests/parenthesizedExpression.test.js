@@ -8,7 +8,7 @@ test("parses parenthesized expression", () => {
     "(1);",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

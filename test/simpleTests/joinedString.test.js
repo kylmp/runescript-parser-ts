@@ -8,7 +8,7 @@ test("parses joined string with expression parts", () => {
     "mes(\"<.displayname> has something in <.text_gender(\"his\", \"her\")> hand.\");",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

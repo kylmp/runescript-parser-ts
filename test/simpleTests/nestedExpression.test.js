@@ -8,7 +8,7 @@ test("parses nested expressions correctly", () => {
     "loc_add(movecoord($loc_coord, ^x, 0, %z), $replacement, modulo(add($angle, 1), 4), $shape, 3);",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

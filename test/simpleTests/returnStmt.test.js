@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("parses return statement correctly", () => {
   const input = "[trigger,name]\nreturn;";
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

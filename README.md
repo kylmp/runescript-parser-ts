@@ -38,7 +38,7 @@ const scriptFile = ScriptParser.parseFile("/path/to/file.rs2");
 const scriptFile = ScriptParser.parseFileAsync("/path/to/file.rs2");
 
 // Parse just a script from string
-const script = ScriptParser.parseSciptText("[test,example]\nreturn;");
+const script = ScriptParser.parseScriptText("[test,example]\nreturn;");
 ```
 
 ## Credits

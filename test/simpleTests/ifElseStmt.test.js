@@ -8,7 +8,7 @@ test("parses if/else statement correctly", () => {
     "if (1 = 2) { return; } else return;",
   ].join("\n");
 
-  const script = ScriptParser.parseSciptText(input);
+  const script = ScriptParser.parseScriptText(input);
 
   assert.ok(script, "expected a Script");
   assert.equal(script.statements.length, 1);

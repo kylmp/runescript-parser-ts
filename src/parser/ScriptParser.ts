@@ -9,57 +9,75 @@ import type { Script } from "../ast/Script.js"
 import type { ScriptFile } from "../ast/ScriptFile.js"
 import { AstBuilder } from "./AstBuilder.js"
 
+export type ParserOptions = {
+  errorListener?: ANTLRErrorListener<unknown>;
+  tolerant?: boolean;
+};
+
 export class ScriptParser {
-  public static parseFile(
-    path: string,
-    errorListener?: ANTLRErrorListener<unknown>
-  ): ScriptFile | null {
+  public static parseFile(path: string, options?: ParserOptions): ScriptFile | null {
+    const optionsResolved = options ?? {};
     const content = readFileSync(path, "utf8");
     return this.invokeParser(
       CharStreams.fromString(content, path),
       (parser) => parser.scriptFile(),
-      errorListener
+      optionsResolved.errorListener,
+      0,
+      0,
+      optionsResolved.tolerant ?? false
     ) as ScriptFile | null;
   }
 
   public static async parseFileAsync(
     path: string,
-    errorListener?: ANTLRErrorListener<unknown>
+    options?: ParserOptions
   ): Promise<ScriptFile | null> {
+    const optionsResolved = options ?? {};
     const content = await readFile(path, "utf8");
     return this.invokeParser(
       CharStreams.fromString(content, path),
       (parser) => parser.scriptFile(),
-      errorListener
+      optionsResolved.errorListener,
+      0,
+      0,
+      optionsResolved.tolerant ?? false
     ) as ScriptFile | null;
   }
 
   public static parseFileTextString(
     scriptFile: string,
-    errorListener?: ANTLRErrorListener<unknown>
+    options?: ParserOptions
   ): ScriptFile | null {
+    const optionsResolved = options ?? {};
     return this.invokeParser(
       CharStreams.fromString(scriptFile, "<source>"),
       (parser) => parser.scriptFile(),
-      errorListener
+      optionsResolved.errorListener,
+      0,
+      0,
+      optionsResolved.tolerant ?? false
     ) as ScriptFile | null;
   }
 
   public static parseFileTextLines(
     lines: string[],
-    errorListener?: ANTLRErrorListener<unknown>
+    options?: ParserOptions
   ): ScriptFile | null {
-    return this.parseFileTextString(lines.join("\n"), errorListener);
+    return this.parseFileTextString(lines.join("\n"), options);
   }
 
   public static parseScriptText(
     script: string,
-    errorListener?: ANTLRErrorListener<unknown>
+    options?: ParserOptions
   ): Script | null {
+    const optionsResolved = options ?? {};
     return this.invokeParser(
       CharStreams.fromString(script, "<source>"),
       (parser) => parser.script(),
-      errorListener
+      optionsResolved.errorListener,
+      0,
+      0,
+      optionsResolved.tolerant ?? false
     ) as Script | null;
   }
 
@@ -68,7 +86,8 @@ export class ScriptParser {
     entry: (parser: RuneScriptParser) => ParserRuleContext,
     errorListener?: ANTLRErrorListener<unknown>,
     lineOffset = 0,
-    columnOffset = 0
+    columnOffset = 0,
+    tolerant = false
   ): Node | null {
     const lexer = new RuneScriptLexer(stream);
     const tokens = new CommonTokenStream(lexer);
@@ -84,7 +103,7 @@ export class ScriptParser {
 
     const tree = entry(parser);
 
-    if (parser.numberOfSyntaxErrors > 0) {
+    if (!tolerant && parser.numberOfSyntaxErrors > 0) {
       return null;
     }
 

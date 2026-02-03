@@ -5,7 +5,7 @@ import { silentListener } from "../testUtils.js";
 
 test("parses invalid script correctly - returns null", () => {
   const input = "[missing_comma]";
-  const scriptFile = ScriptParser.parseFileTextString(input, silentListener);
+  const scriptFile = ScriptParser.parseFileTextString(input, { errorListener: silentListener });
 
   assert.equal(scriptFile, null);
 });

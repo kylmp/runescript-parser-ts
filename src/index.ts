@@ -1,7 +1,9 @@
 export { ScriptParser } from "./parser/ScriptParser.js"
+export type { ParserOptions } from "./parser/ScriptParser.js"
 export { ParsingException } from "./parser/ParsingException.js"
 
 export * from "./ast/AstVisitor.js"
+export * from "./ast/AstQuery.js"
 export * from "./ast/Node.js"
 export * from "./ast/NodeKind.js"
 export * from "./ast/NodeSourceLocation.js"

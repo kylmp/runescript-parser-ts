@@ -7,7 +7,7 @@ const testScripts = join(dirname(fileURLToPath(import.meta.url)), "_testscripts"
 export function parseTestScript(name) {
   const scriptPath = join(testScripts, name.endsWith('rs2') ? name : `${name}.rs2`);
   const { errors, listener } = createErrorListener(scriptPath);
-  return { scriptFile: ScriptParser.parseFile(scriptPath, listener), errors: errors };
+  return { scriptFile: ScriptParser.parseFile(scriptPath, { errorListener: listener }), errors: errors };
 }
 
 export const silentListener = {

@@ -435,15 +435,24 @@ export class AstBuilder
   }
 
   private location(ctx: ParserRuleContext): NodeSourceLocation {
-    return this.locationFromToken(ctx.start);
+    const stop = ctx.stop ?? ctx.start;
+    return this.locationFromRange(ctx.start, stop);
   }
 
   private locationFromToken(token: AntlrToken): NodeSourceLocation {
-    const columnOffset = token.line === 1 ? this.columnOffset : 0;
+    return this.locationFromRange(token, token);
+  }
+
+  private locationFromRange(start: AntlrToken, stop: AntlrToken): NodeSourceLocation {
+    const startColumnOffset = start.line === 1 ? this.columnOffset : 0;
+    const endColumnOffset = stop.line === 1 ? this.columnOffset : 0;
+    const textLength = Math.max(stop.text?.length ?? 0, 1);
     return {
       name: this.source,
-      line: token.line + this.lineOffset,
-      column: token.charPositionInLine + columnOffset + 1,
+      line: start.line - 1 + this.lineOffset,
+      column: start.charPositionInLine + startColumnOffset,
+      endLine: stop.line - 1 + this.lineOffset,
+      endColumn: stop.charPositionInLine + endColumnOffset + textLength,
     };
   }
 

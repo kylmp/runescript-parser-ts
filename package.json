@@ -1,10 +1,12 @@
 {
   "name": "runescript-parser",
-  "private": true,
+  "version": "0.1.1",
+  "description": "RuneScript (RS2) parser and AST for TypeScript.",
   "type": "module",
   "scripts": {
     "antlr:generate": "antlr4ts -visitor -no-listener -o src/antlr -Xexact-output-dir antlr/RuneScriptLexer.g4 antlr/RuneScriptParser.g4 && node scripts/fix-antlr-imports.mjs",
     "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build && npm test",
     "test": "npm run build && node --test \"test/**/*.test.js\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
@@ -15,6 +17,15 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kylmp/runescript-parser-ts.git"
   },
   "devDependencies": {
     "antlr4ts": "0.5.0-alpha.4",

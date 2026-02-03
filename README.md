@@ -1,10 +1,16 @@
-# runescript-parser-ts
+# runescript-parser
 
 TypeScript RuneScript parser extracted from the Neptune project.
 
 ## Install
 
-This repo is intended for local development. Build output is in `dist/`.
+```
+npm install runescript-parser
+```
+
+## Development
+
+Build output is in `dist/`.
 
 ```
 npm install
@@ -20,15 +26,15 @@ npm run antlr:generate
 ## Usage
 
 ```js
-import { ScriptParser } from "./dist/index.js";
+import { ScriptParser } from "runescript-parser";
 
 // Parse file from string
 const scriptFile = ScriptParser.parseFileTextString("[test,example]\nreturn;");
 
-// Parse file from file parth
+// Parse file from file path
 const scriptFile = ScriptParser.parseFile("/path/to/file.rs2");
 
-// Parse file from file parth (async)
+// Parse file from file path (async)
 const scriptFile = ScriptParser.parseFileAsync("/path/to/file.rs2");
 
 // Parse just a script from string

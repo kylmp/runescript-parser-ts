@@ -132,12 +132,15 @@ export class AstBuilder
 
   public visitScript(ctx: ScriptContext): Node {
     const returns = ctx.typeList()?.IDENTIFIER()?.map((node) => this.toAstToken(node.symbol));
+    const isStar = ctx.MUL() !== undefined
+    const source = this.location(ctx);
+    if (isStar) source.endColumn = source.endColumn + 1;
 
     return new Script({
-      source: this.location(ctx),
+      source,
       trigger: this.visitNode(ctx._trigger),
       name: this.visitNode(ctx._name),
-      isStar: ctx.MUL() !== undefined,
+      isStar,
       parameters: ctx.parameterList()?.parameter().map((param) => this.visitNode(param)) ?? null,
       returnTokens: returns ?? null,
       statements: ctx.statement().map((statement) => this.visitNode(statement)),

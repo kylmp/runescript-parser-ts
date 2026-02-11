@@ -1,6 +1,6 @@
 {
   "name": "runescript-parser",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "RuneScript (RS2) parser and AST for TypeScript.",
   "type": "module",
   "scripts": {
